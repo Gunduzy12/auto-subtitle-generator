@@ -4,7 +4,7 @@ import os
 import torch
 import sys
 
-# --- YAPILANDIRMA AYARLARI ---
+
 # İşlenecek video dosyasının adı
 INPUT_VIDEO = "video.mp4"
 
@@ -16,7 +16,7 @@ OUTPUT_VIDEO = "video_with_subs.mp4"
 # 'medium' veya 'large' daha iyi sonuç verir ancak daha fazla VRAM gerektirir.
 MODEL_SIZE = "medium" 
 
-# Modelin videoyu daha iyi anlaması için bağlam (Opsiyonel)
+
 # Videonun içeriği hakkında kısa bir bilgi verirseniz doğruluk artar.
 INITIAL_PROMPT = "Bu video genel konuşmalar, diyaloglar ve teknik terimler içermektedir."
 
@@ -48,11 +48,11 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Bilgi: İşlem '{device.upper()}' üzerinde gerçekleştirilecek.")
 
-    # Varsa eski altyazı dosyasını temizle
+
     if os.path.exists(OUTPUT_SRT):
         os.remove(OUTPUT_SRT)
 
-    # 3. Whisper Modelini Yükle ve Transkript Oluştur
+    
     print(f"\n1. Whisper modeli yükleniyor ({MODEL_SIZE})...")
     try:
         model = whisper.load_model(MODEL_SIZE, device=device)
@@ -67,8 +67,8 @@ def main():
         result = model.transcribe(
             INPUT_VIDEO, 
             fp16=False, 
-            language="tr",       # Türkçe mod
-            beam_size=5,         # Daha iyi doğruluk için beam search
+            language="tr",       
+            beam_size=5,        
             best_of=5, 
             temperature=0, 
             initial_prompt=INITIAL_PROMPT,
@@ -78,7 +78,7 @@ def main():
         print(f"Transkripsiyon hatası: {e}")
         return
     
-    # 4. SRT Dosyasını Yaz
+    
     print("\n3. SRT altyazı dosyası oluşturuluyor...")
     with open(OUTPUT_SRT, "w", encoding="utf-8") as srt_file:
         for index, segment in enumerate(result['segments']):
