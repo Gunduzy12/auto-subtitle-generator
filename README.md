@@ -75,5 +75,4 @@ Hataları bildirmek veya özellik eklemek için "Issue" açabilir veya "Pull Req
 
 ## 📄 Lisans
 Bu proje MIT License altında lisanslanmıştır.
-
 ```
